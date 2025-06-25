@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo Directivo - I.E. María Inmaculada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Section */
+        .hero-directive {
+            position: relative; 
+            height: 50vh; 
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        .hero-directive h1 { 
+            color: white; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        .hero-directive p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); 
+            color: white; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Leadership Section */
+        .leadership-section {
+            padding: 80px 0;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            position: relative;
+        }
+        .leadership-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Historical Directors */
+        .directors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .director-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .director-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .director-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 40px 20px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .director-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--secondary);
+            margin: 0 auto 20px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary);
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .director-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .director-body {
+            padding: 30px 25px;
+            flex-grow: 1;
+        }
+        .director-period {
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .director-name {
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .director-position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-top: 0;
+            display: block;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .director-achievements {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .achievement-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .achievement-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* Current Team */
+        .current-team {
+            margin-top: 80px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .team-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .team-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid var(--secondary);
+            margin: 0 auto;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary);
+        }
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-body {
+            padding: 30px 25px;
+            text-align: center;
+        }
+        .team-position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+        }
+        .team-name {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+        .team-contact {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+        .contact-item i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .director-card {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-directive {
+                height: 40vh;
+            }
+            .director-img {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Emblem_of_Peru.svg/1200px-Emblem_of_Peru.svg.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item" href="directorio.html">Directorio</a></li>
+                                <li><a class="dropdown-item" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="#">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="directivos.html"><i class="bi bi-people me-1"></i>DIRECTIVOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-directive">
+        <div class="hero-content">
+            <h1>Líderes de Nuestra Historia</h1>
+            <p>Directores que forjaron el camino de excelencia educativa</p>
+        </div>
+    </section>
+
+    <section class="leadership-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Directores Históricos</h2>
+                <p class="lead mt-3">Pilares fundamentales de nuestra institución</p>
+            </div>
+            
+            <div class="directors-container">
+                <!-- María Vara de Llanos -->
+                <div class="director-card">
+                    <div class="director-header">
+                        <div class="director-img">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="María Vara de Llanos">
+                        </div>
+                        <span class="director-period">1943-1960</span>
+                    </div>
+                    <div class="director-body">
+                        <h3 class="director-name">María Vara de Llanos</h3>
+                        <span class="director-position">Directora Fundadora</span>
+                        <p>Visionaria educadora que estableció los cimientos de nuestra institución con un enfoque en la formación técnica femenina, revolucionando la educación para mujeres en su época.</p>
+                        
+                        <div class="director-achievements">
+                            <p><strong>Logros destacados:</strong></p>
+                            <ul class="achievement-list">
+                                <li>Fundación del colegio con enfoque técnico-industrial</li>
+                                <li>Establecimiento del modelo educativo pionero</li>
+                                <li>Creación de los primeros talleres técnicos</li>
+                                <li>Formación de las primeras promociones de técnicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cristina Raéz de Arrieta -->
+                <div class="director-card">
+                    <div class="director-header">
+                        <div class="director-img">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Cristina Raéz de Arrieta">
+                        </div>
+                        <span class="director-period">1960-1975</span>
+                    </div>
+                    <div class="director-body">
+                        <h3 class="director-name">Cristina Raéz de Arrieta</h3>
+                        <span class="director-position">Directora</span>
+                        <p>Lideró el colegio durante un periodo de consolidación y crecimiento, incluyendo las celebraciones de las Bodas de Plata en 1968. Fortaleció la formación técnica industrial para mujeres.</p>
+                        
+                        <div class="director-achievements">
+                            <p><strong>Logros destacados:</strong></p>
+                            <ul class="achievement-list">
+                                <li>Celebración de Bodas de Plata en 1968</li>
+                                <li>Implementación del Decreto Ley Nº 19326</li>
+                                <li>Expansión de las especialidades técnicas</li>
+                                <li>Consolidación del prestigio académico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Efraín Contreras Maldonado -->
+                <div class="director-card">
+                    <div class="director-header">
+                        <div class="director-img">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Efraín Contreras Maldonado">
+                        </div>
+                        <span class="director-period">1985-2000</span>
+                    </div>
+                    <div class="director-body">
+                        <h3 class="director-name">Efraín Contreras Maldonado</h3>
+                        <span class="director-position">Director</span>
+                        <p>Dirigió durante la transición a la educación técnica moderna, celebrando las Bodas de Oro en 1993. Impulsó el reconocimiento del Teatrín como Monumento Histórico Nacional.</p>
+                        
+                        <div class="director-achievements">
+                            <p><strong>Logros destacados:</strong></p>
+                            <ul class="achievement-list">
+                                <li>Celebración de Bodas de Oro en 1993</li>
+                                <li>Declaración del Teatrín como Monumento Histórico Nacional (1988)</li>
+                                <li>Reconversión a Colegio Estatal Técnico en 1991</li>
+                                <li>Organización del Primer Congreso Regional Pedagógico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="current-team">
+                <div class="section-header">
+                    <h2>Equipo Directivo Actual</h2>
+                    <p class="lead mt-3">Continuando el legado de excelencia educativa</p>
+                </div>
+                
+                <div class="team-grid">
+                    <!-- Director -->
+                    <div class="team-card">
+                        <div class="team-header">
+                            <div class="team-img">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dr. Luis Alberto Morales">
+                            </div>
+                        </div>
+                        <div class="team-body">
+                            <h3 class="team-name">Dr. Luis Alberto Morales</h3>
+                            <span class="team-position">Director</span>
+                            <p>Doctor en Educación con 25 años de experiencia. Impulsor de la innovación pedagógica y tecnológica en la institución.</p>
+                            <div class="team-contact">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>l.morales@mariainmaculada.edu.pe</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>064 233515 - Ext. 101</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subdirector Académico -->
+                    <div class="team-card">
+                        <div class="team-header">
+                            <div class="team-img">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Lic. María Fernanda Rojas">
+                            </div>
+                        </div>
+                        <div class="team-body">
+                            <h3 class="team-name">Lic. María Fernanda Rojas</h3>
+                            <span class="team-position">Subdirectora Académica</span>
+                            <p>Magíster en Gestión Educativa. Especialista en diseño curricular y formación docente. 18 años en la institución.</p>
+                            <div class="team-contact">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>m.rojas@mariainmaculada.edu.pe</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>064 233515 - Ext. 102</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subdirector de Formación -->
+                    <div class="team-card">
+                        <div class="team-header">
+                            <div class="team-img">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Lic. Javier Castillo">
+                            </div>
+                        </div>
+                        <div class="team-body">
+                            <h3 class="team-name">Lic. Javier Castillo</h3>
+                            <span class="team-position">Subdirector de Formación</span>
+                            <p>Especialista en Orientación Educativa. Líder del programa de valores y desarrollo personal de las estudiantes.</p>
+                            <div class="team-contact">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>j.castillo@mariainmaculada.edu.pe</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>064 233515 - Ext. 103</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coordinadora Técnica -->
+                    <div class="team-card">
+                        <div class="team-header">
+                            <div class="team-img">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ing. Rosa Vargas">
+                            </div>
+                        </div>
+                        <div class="team-body">
+                            <h3 class="team-name">Ing. Rosa Vargas</h3>
+                            <span class="team-position">Coordinadora Técnica</span>
+                            <p>Ingeniera Industrial con maestría en Educación Técnica. Responsable de talleres y formación especializada.</p>
+                            <div class="team-contact">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>r.vargas@mariainmaculada.edu.pe</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>064 233515 - Ext. 104</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <!-- Sección de Redes Sociales -->
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sección de Links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">ENLACES RÁPIDOS</h3>
+                    <ul class="footer-links">
+                        <li><a href="historia.html"><i class="bi bi-clock-history"></i> Nuestra Historia</a></li>
+                        <li><a href="#"><i class="bi bi-book"></i> Oferta Académica</a></li>
+                        <li><a href="directivos.html"><i class="bi bi-people"></i> Equipo Directivo</a></li>
+                        <li><a href="#"><i class="bi bi-calendar-event"></i> Eventos</a></li>
+                        <li><a href="#"><i class="bi bi-newspaper"></i> Noticias</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de Contacto -->
+                <div class="footer-section">
+                    <h3 class="footer-title">CONTÁCTENOS</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346, Lima, Perú</p>
+                        <p><i class="bi bi-telephone"></i> (064) 233515</p>
+                        <p><i class="bi bi-envelope"></i> contacto@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-clock"></i> Lunes-Viernes: 7:30 AM - 4:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Animación para las tarjetas de directores
+        const directorCards = document.querySelectorAll('.director-card, .team-card');
+        
+        directorCards.forEach((card, index) => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(30px)";
+            card.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+            
+            setTimeout(() => {
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+            }, 500 + (index * 200));
+        });
+    });
+    </script>
+</body>
+</html>

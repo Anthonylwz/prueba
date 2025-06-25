@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valores Institucionales - I.E. María Inmaculada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Section */
+        .hero-values {
+            position: relative; 
+            height: 60vh; 
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        .hero-values h1 { 
+            color: white; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        .hero-values p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); 
+            color: white; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Values Section */
+        .values-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .values-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .value-category {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .category-title {
+            text-align: center;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary-dark);
+        }
+        
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .value-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        .value-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .value-card:hover .value-img img {
+            transform: scale(1.05);
+        }
+        
+        .value-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        .value-title {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .value-body {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        .value-description {
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .value-pillar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(30, 74, 141, 0.05);
+            border-radius: 10px;
+        }
+        .pillar-icon {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-right: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-on-scroll {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .values-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-values {
+                height: 50vh;
+            }
+            .value-img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagenes/logo.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item" href="directorio.html">Directorio</a></li>
+                                <li><a class="dropdown-item active" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="normas.html">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="docente.html"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actividades.html"><i class="bi bi-activity me-1"></i>ACTIVIDADES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-values">
+        <div class="hero-content">
+            <h1>Nuestros Valores Institucionales</h1>
+            <p>Principios que guían nuestra formación de líderes femeninas</p>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pilares Fundamentales</h2>
+                <p class="lead">La base ética que sostiene nuestra comunidad educativa</p>
+            </div>
+            
+            <!-- Valores de Derechos -->
+            <div class="value-category animate-on-scroll">
+                <h3 class="category-title">DE DERECHOS</h3>
+                
+                <div class="values-container">
+                    <div class="value-card animate-on-scroll delay-1">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Conciencia de Derechos">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Conciencia de Derechos</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Disposición a reconocer y valorar los derechos humanos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-2">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Libertad y Responsabilidad">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Libertad y Responsabilidad</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Promover formas de participación que permitan el desarrollo de competencias.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-3">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Diálogo y Concertación">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Diálogo y Concertación</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Propiciar la deliberación y el consenso en la reflexión sobre diversos asuntos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Respeto">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Respeto</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Disposición en aceptar los acuerdos establecidos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Valores Inclusivos -->
+            <div class="value-category animate-on-scroll">
+                <h3 class="category-title">INCLUSIVO</h3>
+                
+                <div class="values-container">
+                    <div class="value-card animate-on-scroll delay-1">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Respeto por las Diferencias">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Respeto por las Diferencias</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Disposición a reconocer y valorar los derechos humanos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-2">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Equidad en la Enseñanza">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Equidad en la Enseñanza</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Programan y enseñan considerando tiempos, espacios y actividades diferenciadas de acuerdo a las características y demanda.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-3">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Confianza en la Persona">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Confianza en la Persona</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Protegen y fortalecen en toda circunstancia su autonomía, autoconfianza y autoestima.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Valores Interculturales -->
+            <div class="value-category animate-on-scroll">
+                <h3 class="category-title">INTERCULTURAL</h3>
+                
+                <div class="values-container">
+                    <div class="value-card animate-on-scroll delay-1">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Respeto a la Identidad Cultural">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Respeto a la Identidad Cultural</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Reconocimiento de la diversidad cultural de todos los integrantes de la comunidad educativa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-2">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Justicia">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Justicia</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Previenen y afrontan de manera directa toda forma de discriminación, propiciando una reflexión crítica.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-3">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Diálogo Intercultural">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Diálogo Intercultural</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Propician un diálogo continuo entre diversas perspectivas culturales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Valores de Igualdad de Género -->
+            <div class="value-category animate-on-scroll">
+                <h3 class="category-title">DE IGUALDAD DE GÉNERO</h3>
+                
+                <div class="values-container">
+                    <div class="value-card animate-on-scroll delay-1">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Igualdad y Dignidad">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Igualdad y Dignidad</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Aceptación de cualquier diferencia de género.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-2">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Justicia">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Justicia</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Fomentan una valoración sana y respetuosa del cuerpo e integridad de las personas.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-3">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Empatía">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Empatía</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Comprender y entender cómo se sienten ante determinadas situaciones y apoyarse entre sí.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Valores Ambientales -->
+            <div class="value-category animate-on-scroll">
+                <h3 class="category-title">AMBIENTAL</h3>
+                
+                <div class="values-container">
+                    <div class="value-card animate-on-scroll delay-1">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Solidaridad Planetaria">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Solidaridad Planetaria y Equidad Intergeneracional</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Desarrollan acciones de ciudadanía que demuestren conciencia sobre eventos climáticos extremos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-2">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Justicia y Solidaridad">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Justicia y Solidaridad</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Actuar en beneficio de toda la comunidad educativa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll delay-3">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Respeto a Toda Forma de Vida">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Respeto a Toda Forma de Vida</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Aprecio, valoración y disposición para el cuidado de toda forma de vida considerando el proyecto ecológico de la institución.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-img">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Respeto">
+                        </div>
+                        <div class="value-header">
+                            <h4 class="value-title">Respeto</h4>
+                        </div>
+                        <div class="value-body">
+                            <p class="value-description">Disposición en aceptar los acuerdos establecidos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section" style="background: linear-gradient(135deg, #eef2f7 0%, #e1e7f0 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestro Compromiso con los Valores</h2>
+                <p class="lead">Formando ciudadanas integrales para el mundo</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="value-pillar animate-on-scroll">
+                        <div class="pillar-icon">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                        <div>
+                            <h4>Integración de Valores en el Currículo</h4>
+                            <p>Incorporamos los valores institucionales en todas las áreas del plan de estudios, asegurando que cada estudiante desarrolle una comprensión profunda de su importancia en su formación personal y profesional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-pillar animate-on-scroll delay-1">
+                        <div class="pillar-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div>
+                            <h4>Práctica Diaria</h4>
+                            <p>Fomentamos la aplicación constante de nuestros valores en todas las interacciones dentro de la institución, creando un ambiente donde el respeto, la inclusión y la justicia sean parte de la cultura escolar.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-pillar animate-on-scroll delay-2">
+                        <div class="pillar-icon">
+                            <i class="bi bi-tree"></i>
+                        </div>
+                        <div>
+                            <h4>Proyectos de Aplicación</h4>
+                            <p>Desarrollamos iniciativas y proyectos que permiten a nuestras estudiantes poner en práctica los valores institucionales, especialmente en áreas como la sostenibilidad ambiental y la equidad de género.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="value-pillar animate-on-scroll delay-3">
+                        <div class="pillar-icon">
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div>
+                            <h4>Modelamiento Docente</h4>
+                            <p>Nuestro equipo docente ejemplifica los valores institucionales en su práctica diaria, sirviendo como modelos positivos para nuestras estudiantes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <!-- Sección de Redes Sociales -->
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sección de Links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">ENLACES RÁPIDOS</h3>
+                    <ul class="footer-links">
+                        <li><a href="quienes.html"><i class="bi bi-person-badge"></i> ¿Quiénes somos?</a></li>
+                        <li><a href="mision.html"><i class="bi bi-bullseye"></i> Misión y Visión</a></li>
+                        <li><a href="valores.html"><i class="bi bi-heart"></i> Valores</a></li>
+                        <li><a href="historia.html"><i class="bi bi-clock-history"></i> Historia</a></li>
+                        <li><a href="#"><i class="bi bi-people"></i> Equipo Directivo</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de Contacto -->
+                <div class="footer-section">
+                    <h3 class="footer-title">CONTÁCTENOS</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346, Huancayo</p>
+                        <p><i class="bi bi-telephone"></i> (064) 233515</p>
+                        <p><i class="bi bi-envelope"></i> contacto@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-clock"></i> Lunes-Viernes: 7:30 AM - 4:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Formando líderes con valores.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Animación al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.value-category, .value-card, .value-pillar').forEach(el => {
+            observer.observe(el);
+        });
+    });
+    </script>
+</body>
+</html>

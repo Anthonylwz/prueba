@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión y Visión - I.E. María Inmaculada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Section */
+        .hero-mission {
+            position: relative; 
+            height: 60vh; 
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        .hero-mission h1 { 
+            color: white; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+            animation: fadeInDown 1s ease;
+        }
+        .hero-mission p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); 
+            color: white; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        /* Mission Vision Section */
+        .mission-vision-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .mission-vision-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .mission-vision-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card-mission, .card-vision {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        .card-mission:hover, .card-vision:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .card-mission {
+            border-top: 5px solid var(--primary);
+        }
+        .card-vision {
+            border-top: 5px solid var(--secondary);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 30px;
+        }
+        .card-vision .card-icon {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .card-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        .card-vision .card-title::after {
+            background: var(--secondary);
+        }
+        
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        .pillars-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef0f3 100%);
+            position: relative;
+        }
+        .pillars-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cartographer.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .pillar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pillar-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .pillar-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .pillar-title i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-right: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-mission {
+                height: 50vh;
+            }
+            .mission-vision-container {
+                grid-template-columns: 1fr;
+            }
+            .card-mission, .card-vision {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagenes/logo.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item active" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item" href="directorio.html">Directorio</a></li>
+                                <li><a class="dropdown-item" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="#">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-activity me-1"></i>ACTIVIDADES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-mission">
+        <div class="hero-content">
+            <h1>Misión y Visión</h1>
+            <p>Los pilares que guían nuestra labor educativa</p>
+        </div>
+    </section>
+
+    <section class="mission-vision-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Nuestra Identidad Institucional</h2>
+                <p class="lead mt-3">Principios fundamentales que definen nuestro camino educativo</p>
+            </div>
+            
+            <div class="mission-vision-container">
+                <!-- Misión -->
+                <div class="card-mission animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+                    <h2 class="card-title">Misión</h2>
+                    <div class="card-content">
+                        <p>Lograr que todas las estudiantes culminen satisfactoriamente su educación integral en el nivel secundario con formación técnica, desarrollando los aprendizajes establecidos en el Currículo Nacional de Educación Básica y Catálogo Nacional de Oferta Formativa.</p>
+                        
+                        <p>Realizamos nuestra labor en espacios seguros e inclusivos, utilizando estrategias de enseñanza-aprendizaje y acompañamiento pedagógico efectivas, dando relevancia a la sana convivencia y a la no violencia.</p>
+                    </div>
+                </div>
+                
+                <!-- Visión -->
+                <div class="card-vision animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+                    <h2 class="card-title">Visión</h2>
+                    <div class="card-content">
+                        <p>Ser reconocidos al 2025 como una institución educativa acreditada con formación técnica sustentada en lo científico y humanista, que contribuye a que todas nuestras estudiantes desarrollen su potencial en la pubertad y adolescencia.</p>
+                        
+                        <p>Buscamos formar jóvenes con mentalidad innovadora y emprendedora que les permita acceder al mundo laboral competitivo, resolver problemas, practicar valores, y asumirse como ciudadanas con derechos y responsabilidades, contribuyendo al desarrollo de su localidad y del país.</p>
+                        
+                        <p>Aseguramos la sostenibilidad ambiental con los avances mundiales, en concordancia con el perfil de egreso del CNEB.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Pilares Fundamentales</h2>
+                <p class="lead mt-3">Bases que sostienen nuestra propuesta educativa</p>
+            </div>
+            
+            <div class="pillar-container">
+                <div class="row">
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-mortarboard"></i>
+                                <h3>Formación Técnica Integral</h3>
+                            </div>
+                            <p>Desarrollamos competencias técnicas especializadas combinadas con una sólida formación humanista, preparando a las estudiantes para el mundo laboral y para la continuación de sus estudios superiores.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-lightbulb"></i>
+                                <h3>Innovación y Emprendimiento</h3>
+                            </div>
+                            <p>Fomentamos la creatividad, el pensamiento crítico y la capacidad de innovación, preparando a nuestras estudiantes para identificar oportunidades y desarrollar proyectos emprendedores.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-people"></i>
+                                <h3>Convivencia Democrática</h3>
+                            </div>
+                            <p>Promovemos espacios de diálogo, respeto mutuo y resolución pacífica de conflictos, formando ciudadanas responsables que ejercen sus derechos y cumplen sus deberes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-tree"></i>
+                                <h3>Sostenibilidad Ambiental</h3>
+                            </div>
+                            <p>Integramos la conciencia ambiental en todas nuestras actividades, formando estudiantes comprometidas con la conservación del medio ambiente y el desarrollo sostenible.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-shield-check"></i>
+                                <h3>Inclusión y Equidad</h3>
+                            </div>
+                            <p>Garantizamos un entorno educativo seguro e inclusivo donde todas las estudiantes, sin distinción, tienen las mismas oportunidades de desarrollo y aprendizaje.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 animate-on-scroll">
+                        <div class="pillar-card">
+                            <div class="pillar-title">
+                                <i class="bi bi-graph-up"></i>
+                                <h3>Excelencia Académica</h3>
+                            </div>
+                            <p>Nos comprometemos con altos estándares de calidad educativa, utilizando metodologías innovadoras y manteniéndonos actualizados con los avances pedagógicos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-vision-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Nuestro Compromiso</h2>
+                <p class="lead mt-3">Transformando vidas a través de la educación técnica</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto animate-on-scroll">
+                    <div class="card-mission text-center">
+                        <i class="bi bi-stars" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                        <h3>Formando Líderes Técnicas</h3>
+                        <p>En la I.E. María Inmaculada, nos comprometemos a formar profesionales técnicas con sólidos valores éticos, capacidad de liderazgo y competencias para enfrentar los desafíos del siglo XXI. Nuestro modelo educativo integra la excelencia académica con el desarrollo humano, preparando a nuestras estudiantes no solo para el éxito profesional sino también para ser agentes de cambio positivo en sus comunidades.</p>
+                        
+                        <p>Creemos firmemente que la educación técnica de calidad es el camino para construir un Perú más justo, innovador y desarrollado, donde nuestras egresadas sean protagonistas del progreso nacional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <!-- Sección de Redes Sociales -->
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sección de Links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">ENLACES RÁPIDOS</h3>
+                    <ul class="footer-links">
+                        <li><a href="quienes.html"><i class="bi bi-person-badge"></i> ¿Quiénes somos?</a></li>
+                        <li><a href="mision.html"><i class="bi bi-bullseye"></i> Misión y Visión</a></li>
+                        <li><a href="historia.html"><i class="bi bi-clock-history"></i> Nuestra Historia</a></li>
+                        <li><a href="#"><i class="bi bi-book"></i> Oferta Académica</a></li>
+                        <li><a href="#"><i class="bi bi-calendar-event"></i> Eventos</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de Contacto -->
+                <div class="footer-section">
+                    <h3 class="footer-title">CONTÁCTENOS</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346, Huancayo</p>
+                        <p><i class="bi bi-telephone"></i> (064) 233515</p>
+                        <p><i class="bi bi-envelope"></i> contacto@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-clock"></i> Lunes-Viernes: 7:30 AM - 4:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Animación al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto paralaje para la imagen hero
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const hero = document.querySelector('.hero-mission');
+            hero.style.backgroundPositionY = `${50 - scrollPosition * 0.1}%`;
+        });
+    });
+    </script>
+</body>
+</html>

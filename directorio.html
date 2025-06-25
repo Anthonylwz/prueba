@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio - I.E. María Inmaculada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Section */
+        .hero-directorio {
+            position: relative; 
+            height: 50vh; 
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        .hero-directorio h1 { 
+            color: white; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        .hero-directorio p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); 
+            color: white; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Directory Sections */
+        .directory-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .directory-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 20px 30px;
+        }
+        .category-title {
+            margin: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            color: var(--secondary); /* Changed color for better visibility */
+        }
+        .category-title i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
+        
+        .staff-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 20px;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+            display: flex;
+            align-items: flex-start;
+        }
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .staff-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            flex-shrink: 0;
+            border: 3px solid var(--secondary);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .staff-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .staff-info {
+            flex-grow: 1;
+        }
+        .staff-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-size: 1.15rem; /* Tamaño aumentado para mejor visibilidad */
+        }
+        .staff-position {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem; /* Tamaño aumentado para mejor visibilidad */
+            margin-bottom: 8px;
+            background: rgba(30, 74, 141, 0.1); /* Fondo sutil para mejorar contraste */
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .staff-department {
+            color: #495057; /* Color más oscuro para mejor contraste */
+            font-size: 0.9rem; /* Tamaño aumentado para mejor visibilidad */
+            margin-bottom: 0;
+            font-weight: 500; /* Peso medio para mejor legibilidad */
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-directorio {
+                height: 40vh;
+            }
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+            .staff-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .staff-photo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Nuevos estilos para mejorar visibilidad */
+        .staff-name-highlight {
+            position: relative;
+            display: inline-block;
+        }
+        .staff-name-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagenes/logo.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item active" href="directivo.html">Directorio</a></li>
+                                <li><a class="dropdown-item" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="normas.html">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-activity me-1"></i>ACTIVIDADES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-directorio">
+        <div class="hero-content">
+            <h1>Directorio Institucional</h1>
+            <p>Conozca a nuestro equipo de profesionales que lidera la educación mariana</p>
+        </div>
+    </section>
+
+    <section class="directory-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Equipo Directivo</h2>
+                <p class="lead mt-3">Liderazgo comprometido con la excelencia educativa</p>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-people-fill"></i> Dirección y Subdirección</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="imagenes/director.png" alt="Foto de JOSÉ ANTONIO CASTRO CCORA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">JOSÉ ANTONIO CASTRO CCORA</span>
+                            </h4>
+                            <p class="staff-position">Director LE</p>
+                            <p class="staff-department">Dirección General</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de EDGAR SOLANO SOTOMAYOR">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">EDGAR SOLANO SOTOMAYOR</span>
+                            </h4>
+                            <p class="staff-position">Subdirector</p>
+                            <p class="staff-department">Subdirección</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de CIRO CELSO DE LA CRUZ CONTRERAS">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">CIRO CELSO DE LA CRUZ CONTRERAS</span>
+                            </h4>
+                            <p class="staff-position">Subdirector</p>
+                            <p class="staff-department">Subdirección</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ALICIA SABINA CHUMBE INGAROCA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ALICIA SABINA CHUMBE INGAROCA</span>
+                            </h4>
+                            <p class="staff-position">Subdirectora</p>
+                            <p class="staff-department">Subdirección</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de CESIL BETZABE ESPINOZA ROJAS">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">CESIL BETZABE ESPINOZA ROJAS</span>
+                            </h4>
+                            <p class="staff-position">Subdirectora</p>
+                            <p class="staff-department">Subdirección</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de FREDDY MARTIN VALLEJOS LIZARRAGA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">FREDDY MARTIN VALLEJOS LIZARRAGA</span>
+                            </h4>
+                            <p class="staff-position">Subdirector</p>
+                            <p class="staff-department">Subdirección</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-header animate-on-scroll">
+                <h2>Personal Administrativo</h2>
+                <p class="lead mt-3">Profesionales que gestionan la operatividad institucional</p>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-folder-fill"></i> Administración</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de LUZ ELENA MIGUEL DIAZ">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">LUZ ELENA MIGUEL DIAZ</span>
+                            </h4>
+                            <p class="staff-position">Secretaria</p>
+                            <p class="staff-department">Administración</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-header animate-on-scroll">
+                <h2>Jerárquicos</h2>
+                <p class="lead mt-3">Equipos especializados que coordinan las áreas académicas</p>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-gear-fill"></i> Coordinadores de TOE</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de GLORIA ALDAMA MEZA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">GLORIA ALDAMA MEZA</span>
+                            </h4>
+                            <p class="staff-position">Coordinador de TOE</p>
+                            <p class="staff-department">Coordinación Técnica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de MARLENE NOEMI CASTELLARES FERNÁNDEZ">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">MARLENE NOEMI CASTELLARES FERNÁNDEZ</span>
+                            </h4>
+                            <p class="staff-position">Coordinador de TOE</p>
+                            <p class="staff-position">Prof. de Contabilidad</p>
+                            <p class="staff-department">Coordinación Técnica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ELVIS YURI GARAY ARREDONDO">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ELVIS YURI GARAY ARREDONDO</span>
+                            </h4>
+                            <p class="staff-position">Coordinador de TOE</p>
+                            <p class="staff-position">Prof. de DPCC</p>
+                            <p class="staff-department">Coordinación Técnica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de EDGAR JOEL LAZO PALACIOS">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">EDGAR JOEL LAZO PALACIOS</span>
+                            </h4>
+                            <p class="staff-position">Coordinador de TOE</p>
+                            <p class="staff-position">Prof. de EPT prog. de sistemas</p>
+                            <p class="staff-department">Coordinación Técnica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-flask"></i> Jefes de Laboratorio</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de NARVI JOSEFA NINATAYPE RIVERA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">NARVI JOSEFA NINATAYPE RIVERA</span>
+                            </h4>
+                            <p class="staff-position">Jefe de laboratorio</p>
+                            <p class="staff-position">Prof. de CT</p>
+                            <p class="staff-department">Laboratorios</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de JULIA ARTEAGA AGUILAR">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">JULIA ARTEAGA AGUILAR</span>
+                            </h4>
+                            <p class="staff-position">Jefe de laboratorio</p>
+                            <p class="staff-position">Prof. de CT</p>
+                            <p class="staff-department">Laboratorios</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de JOVITA ORDOÑEZ CÓRDOVA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">JOVITA ORDOÑEZ CÓRDOVA</span>
+                            </h4>
+                            <p class="staff-position">Jefe de laboratorio</p>
+                            <p class="staff-position">Prof. de CT</p>
+                            <p class="staff-department">Laboratorios</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-tools"></i> Jefes de Talleres de EPT</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ISABEL GUBERDINA YUPANQUI TORRES">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ISABEL GUBERDINA YUPANQUI TORRES</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller de Programación de Sistemas</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de FLOR ISABEL PEREZ ALVAREZ">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">FLOR ISABEL PEREZ ALVAREZ</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller de Fabricación de Prendas</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de NESTOR GALARZA FLORES">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">NESTOR GALARZA FLORES</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller de Ind. Alimentaría</p>
+                            <p class="staff-position">Profesor</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ROSARIO RAQUEL BUENDIA ANGLAS">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ROSARIO RAQUEL BUENDIA ANGLAS</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller de Cosmetología</p>
+                            <p class="staff-position">Prof. de arte y EPT</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de NICÉFORA ELZA VILCAPOMA COSSIOS">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">NICÉFORA ELZA VILCAPOMA COSSIOS</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller de Fabricación de Productos Textiles</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de LUZ MARIBEL LÁZARO CABRERA DE GALARZA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">LUZ MARIBEL LÁZARO CABRERA DE GALARZA</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Taller Contabilidad y Secretariado</p>
+                            <p class="staff-position">Prof. EPT</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ROSARIO DEL PILAR ORELLANA RODRÍGUEZ">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ROSARIO DEL PILAR ORELLANA RODRÍGUEZ</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Producción (e)</p>
+                            <p class="staff-position">Prof. de EPT textiles</p>
+                            <p class="staff-department">Educación para el Trabajo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-journals"></i> Coordinadores Pedagógicos</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de LIVIA PILAR VILCAHUAMAN CANTO">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">LIVIA PILAR VILCAHUAMAN CANTO</span>
+                            </h4>
+                            <p class="staff-position">Coord. Académica de Comunicación, Inglés</p>
+                            <p class="staff-department">Coordinación Pedagógica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de JAVIER JORGE IRRAZABAL CAYETANO">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">JAVIER JORGE IRRAZABAL CAYETANO</span>
+                            </h4>
+                            <p class="staff-position">Coordinador Académico de Educación Física y Arte</p>
+                            <p class="staff-department">Coordinación Pedagógica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ESTHER ALICIA MEZA GALLARDO">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ESTHER ALICIA MEZA GALLARDO</span>
+                            </h4>
+                            <p class="staff-position">Coordinador Académico de Matemática y C.T.</p>
+                            <p class="staff-department">Coordinación Pedagógica</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                           <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de ÁNGEL LINO ILDEFONSO MUÑOZ">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">ÁNGEL LINO ILDEFONSO MUÑOZ</span>
+                            </h4>
+                            <p class="staff-position">Coordin. Académica de CC.SS.DPCC., Educación Religiosa</p>
+                            <p class="staff-department">Coordinación Pedagógica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card animate-on-scroll">
+                <div class="category-header">
+                    <h3 class="category-title"><i class="bi bi-wrench"></i> Mantenimiento</h3>
+                </div>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-photo">
+                            <img src="REEMPLAZAR_CON_URL_DE_FOTO.jpg" alt="Foto de PEDRO MARCIAL CALLAHUA VILLALBA">
+                        </div>
+                        <div class="staff-info">
+                            <h4 class="staff-name">
+                                <span class="staff-name-highlight">PEDRO MARCIAL CALLAHUA VILLALBA</span>
+                            </h4>
+                            <p class="staff-position">Jefe de Mantenimiento</p>
+                            <p class="staff-position">Prof. Est. Man</p>
+                            <p class="staff-department">Mantenimiento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">ENLACES RÁPIDOS</h3>
+                    <ul class="footer-links">
+                        <li><a href="quienes.html"><i class="bi bi-person-badge"></i> ¿Quiénes somos?</a></li>
+                        <li><a href="mision.html"><i class="bi bi-bullseye"></i> Misión y Visión</a></li>
+                        <li><a href="directivo.html"><i class="bi bi-people-fill"></i> Directorio</a></li>
+                        <li><a href="#"><i class="bi bi-book"></i> Oferta Académica</a></li>
+                        <li><a href="#"><i class="bi bi-calendar-event"></i> Eventos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">CONTÁCTENOS</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346, Huancayo</p>
+                        <p><i class="bi bi-telephone"></i> (064) 233515</p>
+                        <p><i class="bi bi-envelope"></i> contacto@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-clock"></i> Lunes-Viernes: 7:30 AM - 4:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Animación al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto paralaje para la imagen hero
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const hero = document.querySelector('.hero-directorio');
+            if (hero) {
+                hero.style.backgroundPositionY = `${50 - scrollPosition * 0.1}%`;
+            }
+        });
+    });
+    </script>
+</body>
+</html>

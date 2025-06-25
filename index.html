@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I.E. Maria Inmaculada - Marianas, líderes por excelencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Preloader Styles with Progress Bar */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-content { text-align: center; }
+        .preloader-logo {
+            width: 220px; height: 220px;
+            margin: 0 auto 30px;
+            animation: floatLogo 4s infinite ease-in-out;
+        }
+        .preloader-logo-inner {
+            width: 100%; height: 100%;
+            background: url('imagenes/logo.png') center/contain no-repeat;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            border: 5px solid var(--secondary);
+        }
+        .preloader-text {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            animation: textGlow 3s infinite alternate;
+        }
+        .preloader-progress {
+            width: 400px; max-width: 80%; height: 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 5px; overflow: hidden; position: relative;
+        }
+        .preloader-progress-bar {
+            height: 100%; width: 0;
+            background: linear-gradient(90deg, var(--secondary), #e6c86e);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Carousel with Parallax */
+        .hero-carousel { position: relative; height: 85vh; overflow: hidden; }
+        .carousel-item {
+            height: 85vh;
+            background-size: cover;
+            background-position: center center;
+        }
+        .carousel-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 20px;
+        }
+        .carousel-content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+        }
+        .carousel-content h1 { 
+            color: white; 
+            animation: textGlow 3s infinite alternate;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        .carousel-content p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); 
+            color: white; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Interactive Events Carousel */
+        .events-section { 
+            padding: 80px 0; 
+            background: linear-gradient(to bottom, #e9ecef, #dde1e5);
+            position: relative;
+            overflow: hidden;
+        }
+        .events-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cartographer.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .events-container {
+            position: relative;
+            z-index: 1;
+        }
+        .event-card-link {
+            display: block;
+            text-decoration: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 100%;
+        }
+        .event-card-link:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+        .event-card {
+            position: relative; height: 350px;
+            background-size: cover; background-position: center;
+            display: flex; align-items: flex-end; padding: 20px;
+        }
+        .event-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            transition: all 0.5s ease;
+        }
+        .event-card-link:hover .event-card::before {
+            background: linear-gradient(transparent, rgba(30, 74, 141, 0.8));
+        }
+        .event-card-info { 
+            position: relative; 
+            color: white; 
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            width: 100%;
+        }
+        .event-card-info h3 { 
+            color: white; 
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        .event-card-link:hover .event-card-info h3 { color: var(--secondary); }
+        .event-card-info p {
+            margin-bottom: 0;
+            color: #e0e0e0;
+        }
+        
+        /* Team Section */
+        .team-section { 
+            padding: 100px 0; 
+            background: linear-gradient(to bottom, #f8f9fa, #eef0f3);
+            position: relative;
+        }
+        .team-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .team-container {
+            position: relative;
+            z-index: 1;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .team-card {
+            background: white; 
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .team-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .team-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding-bottom: 90px; 
+            border-radius: 15px 15px 0 0;
+            position: relative;
+        }
+        .team-header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,10 Q50,0 100,10 Z" fill="white"/></svg>');
+            background-size: 100% 100%;
+        }
+        .team-photo {
+            width: 150px; height: 150px; border-radius: 50%;
+            margin: -75px auto 15px;
+            border: 6px solid white; 
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .team-photo img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .team-card:hover .team-photo img {
+            transform: scale(1.05);
+        }
+        .team-body { 
+            padding: 25px 25px 30px; 
+        }
+        .team-position { 
+            color: var(--secondary); 
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .team-name { 
+            color: var(--primary-dark); 
+            margin-top: 0; 
+            font-size: 1.4rem; 
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .team-name::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .team-description {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+        .team-contact a {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--primary); color: white;
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: var(--transition); font-size: 1.2rem; margin: 0 5px;
+        }
+        .team-contact a:hover {
+            background: var(--secondary); color: var(--dark);
+            transform: translateY(-5px) rotate(15deg) scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Scroll-triggered Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(212, 175, 55, 0.6); }
+        }
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Scroll-to-top Button */
+        .scroll-top {
+            position: fixed; bottom: -60px; right: 30px;
+            width: 50px; height: 50px; background: var(--primary);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; transition: all 0.5s ease; z-index: 999;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        .scroll-top.visible { bottom: 30px; }
+        .scroll-top:hover { 
+            background: var(--secondary); 
+            color: var(--dark); 
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Video Modal Styling */
+        .video-modal .modal-content { background-color: #000; border: 2px solid var(--secondary); }
+        .video-modal .modal-header { border-bottom: 1px solid var(--secondary); }
+        .video-modal .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+        .video-modal .ratio-16x9 { aspect-ratio: 16 / 9; }
+        
+        /* Events Carousel */
+        .events-carousel {
+            padding: 30px 0;
+        }
+        .carousel-control-prev, .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(30, 74, 141, 0.8);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.8;
+        }
+        .carousel-control-prev:hover, .carousel-control-next:hover {
+            opacity: 1;
+            background: var(--primary);
+        }
+        .carousel-indicators {
+            bottom: -50px;
+        }
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+        .carousel-indicators .active {
+            background-color: var(--secondary);
+        }
+        
+        /* Improved text contrast */
+        .text-contrast {
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .bg-contrast {
+            background: rgba(0,0,0,0.4);
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        /* Slogan improvement */
+        .slogan {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <div class="preloader-logo-inner"></div>
+            </div>
+            <div class="preloader-text">Cargando...</div>
+            <p>Marianas, líderes por excelencia. </p>
+            <div class="preloader-progress">
+                <div class="preloader-progress-bar" id="preloader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagenes/logo.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia.</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item" href="directorio.html">Directorio</a></li>
+                                <li><a class="dropdown-item" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="normas.html">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="anuncios.html"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <!-- Nueva categoría CURSOS -->
+                        <li class="nav-item"><a class="nav-link" href="cursos.html"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="docente.html"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actividades.html"><i class="bi bi-activity me-1"></i>ACTIVIDADES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+         <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('imagenes/82.png');">
+                <div class="carousel-overlay"><div class="carousel-content">
+                    <h1 class="text-contrast">Formando Líderes con Valores</h1>
+                    <p class="text-contrast">Educación integral basada en principios cristianos.</p>
+                    <a href="#" class="btn btn-warning fw-bold mt-3">Conoce Más</a>
+                    <div class="slogan mt-4">
+                        <p class="mb-0 text-light">"Marianas, líderes por excelencia"</p>
+                    </div>
+                </div></div>
+            </div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+                <div class="carousel-overlay"><div class="carousel-content">
+                    <h1 class="text-contrast">Excelencia Académica</h1>
+                    <p class="text-contrast">Preparando a nuestros estudiantes para los desafíos del futuro.</p>
+                    <a href="#" class="btn btn-warning fw-bold mt-3">Nuestros Programas</a>
+                    <div class="slogan mt-4">
+                        <p class="mb-0 text-light">"Educación de calidad para un futuro brillante"</p>
+                    </div>
+                </div></div>
+            </div>
+             <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+                <div class="carousel-overlay"><div class="carousel-content">
+                    <h1 class="text-contrast">Comunidad Marianista</h1>
+                    <p class="text-contrast">Un ambiente de respeto, solidaridad y crecimiento.</p>
+                    <a href="#" class="btn btn-warning fw-bold mt-3">Únete a la Familia</a>
+                    <div class="slogan mt-4">
+                        <p class="mb-0 text-light">"Juntos construyendo un mejor mañana"</p>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <section class="events-section">
+        <div class="container events-container">
+            <div class="animate-on-scroll"><h2 class="section-title text-center mb-5">Eventos y Celebraciones</h2></div>
+            
+            <div id="eventsCarousel" class="carousel slide events-carousel" data-bs-ride="carousel" data-bs-interval="6000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <a href="#" class="event-card-link" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/ScMzIvxBSi4">
+                                    <div class="event-card" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                                        <div class="event-card-info"><h3>Día del Logro</h3><p>Revive los mejores momentos de este evento especial</p></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <a href="#" class="event-card-link" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/h3fUgOK1Lg4">
+                                    <div class="event-card" style="background-image: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                                        <div class="event-card-info"><h3>Aniversario del Colegio</h3><p>Video resumen de nuestra gran celebración</p></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <a href="feria-ciencias.html" target="_blank" class="event-card-link">
+                                    <div class="event-card" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                                        <div class="event-card-info"><h3>Feria de Ciencias</h3><p>Conoce los proyectos ganadores (Ver más)</p></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <a href="#" class="event-card-link" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/ScMzIvxBSi4">
+                                    <div class="event-card" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                                        <div class="event-card-info"><h3>Concierto Navideño</h3><p>Disfruta de la música y el espíritu navideño</p></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+                <div class="carousel-indicators mt-4">
+                    <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team-section" class="team-section">
+        <div class="container team-container">
+            <div class="animate-on-scroll"><h2 class="section-title text-center mb-5">Nuestro Equipo Directivo</h2></div>
+            <div class="team-grid">
+                <div class="team-card animate-on-scroll" data-delay="100">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="imagenes/director.png" alt="Director JOSÉ CASTRO">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Director LE</p>
+                        <h3 class="team-name">LIC. JOSÉ ANTONIO CASTRO CCORA</h3>
+                        <p class="team-description">Con más de 15 años de experiencia en gestión educativa, lidera nuestro proyecto institucional con visión y compromiso.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="Teléfono"><i class="bi bi-telephone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card animate-on-scroll" data-delay="200">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Subdirectora CESIL ESPINOZA">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Subdirectora de Comunicación</p>
+                        <h3 class="team-name">MAG. CESIL BETZABE ESPINOZA ROJAS</h3>
+                        <p class="team-description">Especialista en comunicación educativa, promueve la imagen institucional y las relaciones con la comunidad.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card animate-on-scroll" data-delay="300">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Subdirector EDGAR SOLANO">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Subdirector de CCSS</p>
+                        <h3 class="team-name">DR. EDGAR SOLANO SOTOMAYOR</h3>
+                        <p class="team-description">Doctor en Ciencias Sociales con especialización en educación intercultural, impulsa proyectos de investigación estudiantil.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="Teléfono"><i class="bi bi-telephone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card animate-on-scroll" data-delay="400">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Subdirector CIRO DE LA CRUZ">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Subdirector de Arte y Cultura</p>
+                        <h3 class="team-name">MAG. CIRO CELSO DE LA CRUZ CONTRERAS</h3>
+                        <p class="team-description">Promotor del talento artístico estudiantil, organiza festivales y eventos culturales que destacan nuestra identidad institucional.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="Teléfono"><i class="bi bi-telephone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card animate-on-scroll" data-delay="500">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Subdirectora ALICIA CHUMBE">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Subdirectora de EPT</p>
+                        <h3 class="team-name">LIC. ALICIA SABINA CHUMBE INGAROCA</h3>
+                        <p class="team-description">Líder en educación técnica, desarrolla programas que preparan a los estudiantes para el mundo laboral con habilidades prácticas.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="Teléfono"><i class="bi bi-telephone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card animate-on-scroll" data-delay="600">
+                    <div class="team-header"></div>
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Subdirector FREDDY VALLEJOS">
+                    </div>
+                    <div class="team-body">
+                        <p class="team-position">Subdirector CT - Matemática</p>
+                        <h3 class="team-name">DR. FREDDY MARTIN VALLEJOS LIZARRAGA</h3>
+                        <p class="team-description">Especialista en educación matemática, implementa metodologías innovadoras para el aprendizaje de ciencias exactas.</p>
+                        <div class="team-contact">
+                            <a href="#" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                            <a href="#" aria-label="Teléfono"><i class="bi bi-telephone"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <!-- Sección de Redes Sociales -->
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sección de Links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="bi bi-info-circle"></i> My Info</a></li>
+                        <li><a href="#"><i class="bi bi-question-circle"></i> My Questions</a></li>
+                        <li><a href="#"><i class="bi bi-info-circle"></i> FAQ</a></li>
+                        <li><a href="#"><i class="bi bi-search"></i> Search Courses</a></li>
+                        <li><a href="#"><i class="bi bi-newspaper"></i> Latest Informations</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de Contacto -->
+                <div class="footer-section">
+                    <h3 class="footer-title">Nuestros Valiosos Colaboradores</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-building"></i> Institución Educativa María Inmaculada</p>
+                        <p><i class="bi bi-envelope"></i> secretaria@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-telephone"></i> 064 233515</p>
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Diseñado para la comunidad educativa.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="scroll-top" id="scrollTop" aria-label="Volver arriba"><i class="bi bi-arrow-up"></i></a>
+
+    <div class="modal fade video-modal" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="videoModalLabel">Video del Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // --- PRELOADER WITH PROGRESS BAR ---
+        const preloader = document.getElementById('preloader');
+        const progressBar = document.getElementById('preloader-bar');
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 5) + 1;
+            if (progress >= 95) {
+                progress = 95; // Stop just before 100
+                clearInterval(interval);
+            }
+            progressBar.style.width = progress + '%';
+        }, 150);
+
+        window.onload = () => {
+            clearInterval(interval);
+            progressBar.style.width = '100%';
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 500); // Wait for the progress bar to finish animating
+        };
+        
+        // --- SCROLL-TRIGGERED ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = parseInt(entry.target.dataset.delay) || 0;
+                    setTimeout(() => {
+                         entry.target.classList.add('is-visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // --- PARALLAX EFFECT ---
+        const heroCarousel = document.getElementById('heroCarousel');
+        window.addEventListener('scroll', () => {
+            const activeItem = heroCarousel.querySelector('.carousel-item.active');
+            if (activeItem) {
+                activeItem.style.backgroundPositionY = window.pageYOffset * 0.4 + 'px';
+            }
+        });
+
+        // --- SCROLL-TO-TOP BUTTON ---
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // --- VIDEO MODAL LOGIC ---
+        const videoModal = document.getElementById('videoModal');
+        const iframe = videoModal.querySelector('iframe');
+        
+        videoModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const videoSrc = button.getAttribute('data-video-src');
+            iframe.src = videoSrc + "?autoplay=1"; // Add autoplay
+        });
+
+        videoModal.addEventListener('hide.bs.modal', () => {
+            iframe.src = ""; // Stop video on close
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Académicos - I.E. Maria Inmaculada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e4a8d;
+            --primary-dark: #0a2a5e;
+            --secondary: #d4af37;
+            --accent: #8b0000;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            overflow-x: hidden;
+            color: #333;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+        
+        /* Header Styles */
+        header {
+            background: rgba(30, 74, 141, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background-color: var(--primary-dark);
+            border: 1px solid var(--secondary);
+        }
+        .navbar-nav .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+        
+        /* Courses Header */
+        .courses-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .courses-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cartographer.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .courses-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .courses-header h1 {
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .courses-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Category Filters */
+        .category-filters {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 90px;
+            z-index: 800;
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .filter-group h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            background: #f0f4f9;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .filter-btn.active {
+            font-weight: 600;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 50px;
+            border: 2px solid #e2e8f0;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        /* Courses Grid */
+        .courses-container {
+            padding: 0 15px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .course-header {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover .course-image {
+            transform: scale(1.05);
+        }
+        
+        .course-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .course-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-level {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .level-basico { background: #e6f7ff; color: #0066cc; }
+        .level-intermedio { background: #fff7e6; color: #cc6600; }
+        .level-avanzado { background: #f9f0ff; color: #6600cc; }
+        
+        .course-title {
+            margin: 0 0 15px;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+        }
+        
+        .course-description {
+            color: #555;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .course-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .course-meta-item i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        .course-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 50px;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .course-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.03);
+            color: white;
+        }
+        
+        /* Course Detail Modal */
+        .course-modal .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .course-modal .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-bottom: none;
+            padding: 25px;
+        }
+        
+        .course-modal .modal-title {
+            font-size: 1.8rem;
+        }
+        
+        .course-modal .modal-body {
+            padding: 30px;
+        }
+        
+        .course-modal .course-level {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
+        .course-modal .course-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .course-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .detail-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .detail-item i {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .detail-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            color: #555;
+        }
+        
+        .course-syllabus {
+            margin-top: 30px;
+        }
+        
+        .syllabus-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .syllabus-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .syllabus-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 30px; position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        .footer-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary);
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Scroll-triggered Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(212, 175, 55, 0.6); }
+        }
+        
+        /* Scroll-to-top Button */
+        .scroll-top {
+            position: fixed; bottom: -60px; right: 30px;
+            width: 50px; height: 50px; background: var(--primary);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; transition: all 0.5s ease; z-index: 999;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        .scroll-top.visible { bottom: 30px; }
+        .scroll-top:hover { 
+            background: var(--secondary); 
+            color: var(--dark); 
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagenes/logo.png" alt="Logo I.E. Maria Inmaculada" width="75" height="75" class="me-3 rounded-circle border border-2 border-secondary">
+                    <div>
+                        <span class="h6 mb-0 text-white d-block">I.E. "MARIA INMACULADA"</span>
+                        <small class="text-warning">Marianas, líderes por excelencia.</small>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-1"></i>IDENTIDAD</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="quienes.html">¿Quiénes somos?</a></li>
+                                <li><a class="dropdown-item" href="mision.html">Misión y Visión</a></li>
+                                <li><a class="dropdown-item" href="directorio.html">Directorio</a></li>
+                                <li><a class="dropdown-item" href="valores.html">Valores</a></li>
+                                <li><a class="dropdown-item" href="normas.html">Normas de convivencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="anuncios.html"><i class="bi bi-megaphone me-1"></i>ANUNCIOS</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="cursos.html"><i class="bi bi-book me-1"></i>CURSOS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="docente.html"><i class="bi bi-journal-bookmark me-1"></i>FORMACIÓN DOCENTE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="historia.html"><i class="bi bi-clock-history me-1"></i>HISTORIA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actividades.html"><i class="bi bi-activity me-1"></i>ACTIVIDADES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sesion.html"><i class="bi bi-person-circle me-1"></i>SESION</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="courses-header">
+        <div class="container courses-header-content">
+            <h1 class="animate-on-scroll"><i class="bi bi-book me-3"></i>Nuestros Cursos Académicos</h1>
+            <p class="lead animate-on-scroll" data-delay="200">Descubre nuestra amplia oferta educativa diseñada para formar líderes con excelencia académica y valores sólidos.</p>
+        </div>
+    </div>
+
+    <div class="courses-container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="category-filters">
+                    <h3>Filtrar Cursos</h3>
+                    
+                    <div class="filter-group">
+                        <h4>Categorías</h4>
+                        <div class="filter-options">
+                            <button class="filter-btn active" data-category="all">Todos</button>
+                            <button class="filter-btn" data-category="ciencias">Ciencias</button>
+                            <button class="filter-btn" data-category="letras">Letras</button>
+                            <button class="filter-btn" data-category="tecnologia">Tecnología</button>
+                            <button class="filter-btn" data-category="arte">Arte</button>
+                            <button class="filter-btn" data-category="idiomas">Idiomas</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4>Nivel</h4>
+                        <div class="filter-options">
+                            <button class="filter-btn active" data-level="all">Todos</button>
+                            <button class="filter-btn" data-level="basico">Básico</button>
+                            <button class="filter-btn" data-level="intermedio">Intermedio</button>
+                            <button class="filter-btn" data-level="avanzado">Avanzado</button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Buscar cursos..." id="courseSearch">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <h2 class="section-title animate-on-scroll">Catálogo de Cursos</h2>
+                
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Curso 1: Matemáticas Avanzadas -->
+                    <div class="course-card animate-on-scroll" data-category="ciencias" data-level="avanzado">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Matemáticas Avanzadas" class="course-image">
+                            <span class="course-category">Ciencias</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-avanzado">Avanzado</span>
+                            <h3 class="course-title">Matemáticas Avanzadas</h3>
+                            <p class="course-description">Profundiza en cálculo diferencial e integral, álgebra lineal y geometría analítica con aplicaciones prácticas en física e ingeniería.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 120 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 10-15 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Lic. Carlos Mendoza</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="matematicas">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 2: Literatura Universal -->
+                    <div class="course-card animate-on-scroll" data-category="letras" data-level="intermedio">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Literatura Universal" class="course-image">
+                            <span class="course-category">Letras</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-intermedio">Intermedio</span>
+                            <h3 class="course-title">Literatura Universal</h3>
+                            <p class="course-description">Explora las grandes obras literarias desde la antigüedad hasta el siglo XXI, analizando contextos históricos y corrientes literarias.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 90 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 12-18 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Mag. Laura Torres</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="literatura">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 3: Programación Web -->
+                    <div class="course-card animate-on-scroll" data-category="tecnologia" data-level="intermedio">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Programación Web" class="course-image">
+                            <span class="course-category">Tecnología</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-intermedio">Intermedio</span>
+                            <h3 class="course-title">Programación Web</h3>
+                            <p class="course-description">Aprende desarrollo web con HTML5, CSS3, JavaScript y frameworks modernos para crear sitios interactivos y aplicaciones web.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 100 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 8-12 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Ing. Marco Ramírez</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="programacion">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 4: Biología Molecular -->
+                    <div class="course-card animate-on-scroll" data-category="ciencias" data-level="avanzado">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Biología Molecular" class="course-image">
+                            <span class="course-category">Ciencias</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-avanzado">Avanzado</span>
+                            <h3 class="course-title">Biología Molecular</h3>
+                            <p class="course-description">Estudio avanzado de la estructura y función de macromoléculas esenciales para la vida, incluyendo ADN, ARN y proteínas.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 110 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 10-15 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Dra. Ana Vargas</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="biologia">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 5: Arte Contemporáneo -->
+                    <div class="course-card animate-on-scroll" data-category="arte" data-level="basico">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Arte Contemporáneo" class="course-image">
+                            <span class="course-category">Arte</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-basico">Básico</span>
+                            <h3 class="course-title">Arte Contemporáneo</h3>
+                            <p class="course-description">Introducción a los movimientos artísticos del siglo XX y XXI, explorando técnicas y conceptos innovadores en el arte moderno.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 80 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 15-20 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Lic. Sofía Gutiérrez</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="arte">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 6: Inglés Avanzado -->
+                    <div class="course-card animate-on-scroll" data-category="idiomas" data-level="avanzado">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1503252947848-7338d3f92f31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Inglés Avanzado" class="course-image">
+                            <span class="course-category">Idiomas</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-avanzado">Avanzado</span>
+                            <h3 class="course-title">Inglés Avanzado</h3>
+                            <p class="course-description">Perfecciona tu dominio del inglés con enfoque en conversación fluida, escritura académica y comprensión de textos complejos.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 120 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 8-12 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Prof. James Wilson</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="ingles">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 7: Física Cuántica -->
+                    <div class="course-card animate-on-scroll" data-category="ciencias" data-level="avanzado">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1620646233562-f2a31ad24425?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Física Cuántica" class="course-image">
+                            <span class="course-category">Ciencias</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-avanzado">Avanzado</span>
+                            <h3 class="course-title">Física Cuántica</h3>
+                            <p class="course-description">Exploración de los principios fundamentales de la mecánica cuántica y sus aplicaciones en nanotecnología y computación cuántica.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 140 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 8-10 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Dr. Roberto Salas</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="fisica">Ver Detalles</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Curso 8: Francés Intermedio -->
+                    <div class="course-card animate-on-scroll" data-category="idiomas" data-level="intermedio">
+                        <div class="course-header">
+                            <img src="https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Francés Intermedio" class="course-image">
+                            <span class="course-category">Idiomas</span>
+                        </div>
+                        <div class="course-body">
+                            <span class="course-level level-intermedio">Intermedio</span>
+                            <h3 class="course-title">Francés Intermedio</h3>
+                            <p class="course-description">Desarrolla habilidades de comunicación en francés con énfasis en gramática avanzada, vocabulario especializado y cultura francófona.</p>
+                            <div class="course-meta">
+                                <div class="course-meta-item"><i class="bi bi-clock"></i> 100 horas</div>
+                                <div class="course-meta-item"><i class="bi bi-person"></i> 10-15 alumnos</div>
+                                <div class="course-meta-item"><i class="bi bi-mortarboard"></i> Prof. Marie Dubois</div>
+                            </div>
+                            <button class="course-btn" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="frances">Ver Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container py-5">
+            <div class="footer-content">
+                <!-- Sección de Redes Sociales -->
+                <div class="footer-section">
+                    <h3 class="footer-title">REDES SOCIALES</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="PeruEduca">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="SIAGIE">
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sección de Links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
+                        <li><a href="cursos.html"><i class="bi bi-book"></i> Cursos</a></li>
+                        <li><a href="docente.html"><i class="bi bi-journal-bookmark"></i> Formación Docente</a></li>
+                        <li><a href="actividades.html"><i class="bi bi-activity"></i> Actividades</a></li>
+                        <li><a href="sesion.html"><i class="bi bi-person-circle"></i> Acceso</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de Contacto -->
+                <div class="footer-section">
+                    <h3 class="footer-title">Nuestros Valiosos Colaboradores</h3>
+                    <div class="contact-info">
+                        <p><i class="bi bi-building"></i> Institución Educativa María Inmaculada</p>
+                        <p><i class="bi bi-envelope"></i> secretaria@mariainmaculada.edu.pe</p>
+                        <p><i class="bi bi-telephone"></i> 064 233515</p>
+                        <p><i class="bi bi-geo-alt"></i> Calle Amazonas 346</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="text-center mb-0">&copy; 2025 I.E. "Maria Inmaculada". Diseñado para la comunidad educativa.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="scroll-top" id="scrollTop" aria-label="Volver arriba"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Modal para detalles del curso -->
+    <div class="modal fade course-modal" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Detalles del Curso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 id="modalCourseTitle">Matemáticas Avanzadas</h3>
+                    <span id="modalCourseLevel" class="course-level level-avanzado">Avanzado</span>
+                    <p id="modalCourseDescription" class="course-description mt-3">Profundiza en cálculo diferencial e integral, álgebra lineal y geometría analítica con aplicaciones prácticas en física e ingeniería.</p>
+                    
+                    <div class="course-details">
+                        <div class="detail-item">
+                            <i class="bi bi-clock"></i>
+                            <div class="detail-title">Duración</div>
+                            <div id="modalCourseDuration" class="detail-value">120 horas</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="bi bi-people"></i>
+                            <div class="detail-title">Cupos</div>
+                            <div id="modalCourseStudents" class="detail-value">10-15 alumnos</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="bi bi-mortarboard"></i>
+                            <div class="detail-title">Profesor</div>
+                            <div id="modalCourseTeacher" class="detail-value">Lic. Carlos Mendoza</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="bi bi-calendar-check"></i>
+                            <div class="detail-title">Horario</div>
+                            <div id="modalCourseSchedule" class="detail-value">Lunes y Miércoles 15:00-17:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-syllabus">
+                        <h4 class="syllabus-title">Temario del Curso</h4>
+                        <div id="modalCourseSyllabus">
+                            <div class="syllabus-item">Cálculo diferencial e integral avanzado</div>
+                            <div class="syllabus-item">Álgebra lineal y matrices</div>
+                            <div class="syllabus-item">Geometría analítica en 3D</div>
+                            <div class="syllabus-item">Ecuaciones diferenciales</div>
+                            <div class="syllabus-item">Análisis vectorial</div>
+                            <div class="syllabus-item">Series y transformadas</div>
+                            <div class="syllabus-item">Aplicaciones en física e ingeniería</div>
+                            <div class="syllabus-item">Proyectos de investigación aplicada</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Inscribirse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Filtrado de cursos
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+        const searchInput = document.getElementById('courseSearch');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover activo de todos los botones en el mismo grupo
+                const group = btn.closest('.filter-group');
+                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                
+                // Activar el botón clickeado
+                btn.classList.add('active');
+                
+                // Filtrar cursos
+                filterCourses();
+            });
+        });
+        
+        searchInput.addEventListener('input', filterCourses);
+        
+        function filterCourses() {
+            const category = document.querySelector('.filter-options [data-category].active').dataset.category;
+            const level = document.querySelector('.filter-options [data-level].active').dataset.level;
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            courseCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const cardLevel = card.dataset.level;
+                const cardTitle = card.querySelector('.course-title').textContent.toLowerCase();
+                const cardDesc = card.querySelector('.course-description').textContent.toLowerCase();
+                
+                const categoryMatch = category === 'all' || category === cardCategory;
+                const levelMatch = level === 'all' || level === cardLevel;
+                const searchMatch = searchTerm === '' || 
+                    cardTitle.includes(searchTerm) || 
+                    cardDesc.includes(searchTerm);
+                
+                if (categoryMatch && levelMatch && searchMatch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Modal de detalles del curso
+        const courseModal = document.getElementById('courseModal');
+        courseModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const course = button.dataset.course;
+            
+            // Datos de ejemplo para el curso seleccionado
+            let courseData = {
+                title: "Matemáticas Avanzadas",
+                level: "avanzado",
+                description: "Profundiza en cálculo diferencial e integral, álgebra lineal y geometría analítica con aplicaciones prácticas en física e ingeniería.",
+                duration: "120 horas",
+                students: "10-15 alumnos",
+                teacher: "Lic. Carlos Mendoza",
+                schedule: "Lunes y Miércoles 15:00-17:00",
+                syllabus: [
+                    "Cálculo diferencial e integral avanzado",
+                    "Álgebra lineal y matrices",
+                    "Geometría analítica en 3D",
+                    "Ecuaciones diferenciales",
+                    "Análisis vectorial",
+                    "Series y transformadas",
+                    "Aplicaciones en física e ingeniería",
+                    "Proyectos de investigación aplicada"
+                ]
+            };
+            
+            // Cambiar datos según el curso seleccionado
+            if (course === "literatura") {
+                courseData = {
+                    title: "Literatura Universal",
+                    level: "intermedio",
+                    description: "Explora las grandes obras literarias desde la antigüedad hasta el siglo XXI, analizando contextos históricos y corrientes literarias.",
+                    duration: "90 horas",
+                    students: "12-18 alumnos",
+                    teacher: "Mag. Laura Torres",
+                    schedule: "Martes y Jueves 14:00-16:00",
+                    syllabus: [
+                        "Literatura clásica: Grecia y Roma",
+                        "Edad Media y Renacimiento",
+                        "Literatura del Barroco y Neoclasicismo",
+                        "Romanticismo y Realismo",
+                        "Modernismo y Vanguardias",
+                        "Literatura contemporánea",
+                        "Análisis de textos emblemáticos",
+                        "Talleres de escritura creativa"
+                    ]
+                };
+            } else if (course === "programacion") {
+                courseData = {
+                    title: "Programación Web",
+                    level: "intermedio",
+                    description: "Aprende desarrollo web con HTML5, CSS3, JavaScript y frameworks modernos para crear sitios interactivos y aplicaciones web.",
+                    duration: "100 horas",
+                    students: "8-12 alumnos",
+                    teacher: "Ing. Marco Ramírez",
+                    schedule: "Lunes, Miércoles y Viernes 16:00-18:00",
+                    syllabus: [
+                        "Fundamentos de HTML5 y CSS3",
+                        "JavaScript moderno (ES6+)",
+                        "Diseño responsive con Bootstrap",
+                        "Introducción a React.js",
+                        "Backend con Node.js y Express",
+                        "Bases de datos y MongoDB",
+                        "Despliegue de aplicaciones",
+                        "Proyecto final integrador"
+                    ]
+                };
+            } else if (course === "biologia") {
+                courseData = {
+                    title: "Biología Molecular",
+                    level: "avanzado",
+                    description: "Estudio avanzado de la estructura y función de macromoléculas esenciales para la vida, incluyendo ADN, ARN y proteínas.",
+                    duration: "110 horas",
+                    students: "10-15 alumnos",
+                    teacher: "Dra. Ana Vargas",
+                    schedule: "Martes y Jueves 15:00-17:30",
+                    syllabus: [
+                        "Estructura y replicación del ADN",
+                        "Transcripción y procesamiento del ARN",
+                        "Traducción y síntesis de proteínas",
+                        "Regulación de la expresión génica",
+                        "Técnicas de biología molecular",
+                        "Ingeniería genética y biotecnología",
+                        "Genómica y proteómica",
+                        "Proyectos de investigación molecular"
+                    ]
+                };
+            } else if (course === "arte") {
+                courseData = {
+                    title: "Arte Contemporáneo",
+                    level: "basico",
+                    description: "Introducción a los movimientos artísticos del siglo XX y XXI, explorando técnicas y conceptos innovadores en el arte moderno.",
+                    duration: "80 horas",
+                    students: "15-20 alumnos",
+                    teacher: "Lic. Sofía Gutiérrez",
+                    schedule: "Viernes 14:00-17:00",
+                    syllabus: [
+                        "Impressionismo y Post-impressionismo",
+                        "Cubismo y Futurismo",
+                        "Dadaísmo y Surrealismo",
+                        "Expresionismo abstracto",
+                        "Pop Art y Arte Conceptual",
+                        "Instalaciones y performance",
+                        "Arte digital y nuevos medios",
+                        "Talleres prácticos de creación"
+                    ]
+                };
+            } else if (course === "ingles") {
+                courseData = {
+                    title: "Inglés Avanzado",
+                    level: "avanzado",
+                    description: "Perfecciona tu dominio del inglés con enfoque en conversación fluida, escritura académica y comprensión de textos complejos.",
+                    duration: "120 horas",
+                    students: "8-12 alumnos",
+                    teacher: "Prof. James Wilson",
+                    schedule: "Lunes a Viernes 17:00-19:00",
+                    syllabus: [
+                        "Gramática avanzada y uso de tiempos verbales",
+                        "Vocabulario académico y técnico",
+                        "Expresión oral y pronunciación",
+                        "Escritura de ensayos académicos",
+                        "Comprensión de textos complejos",
+                        "Preparación para exámenes internacionales",
+                        "Debates y presentaciones",
+                        "Cultura anglófona"
+                    ]
+                };
+            } else if (course === "fisica") {
+                courseData = {
+                    title: "Física Cuántica",
+                    level: "avanzado",
+                    description: "Exploración de los principios fundamentales de la mecánica cuántica y sus aplicaciones en nanotecnología y computación cuántica.",
+                    duration: "140 horas",
+                    students: "8-10 alumnos",
+                    teacher: "Dr. Roberto Salas",
+                    schedule: "Martes y Jueves 16:00-18:30",
+                    syllabus: [
+                        "Fundamentos de mecánica cuántica",
+                        "Ecuación de Schrödinger",
+                        "Partículas en pozos y barreras",
+                        "Momento angular y spin",
+                        "Átomos y moléculas",
+                        "Física del estado sólido",
+                        "Computación cuántica",
+                        "Proyectos de investigación"
+                    ]
+                };
+            } else if (course === "frances") {
+                courseData = {
+                    title: "Francés Intermedio",
+                    level: "intermedio",
+                    description: "Desarrolla habilidades de comunicación en francés con énfasis en gramática avanzada, vocabulario especializado y cultura francófona.",
+                    duration: "100 horas",
+                    students: "10-15 alumnos",
+                    teacher: "Prof. Marie Dubois",
+                    schedule: "Miércoles y Viernes 14:00-16:00",
+                    syllabus: [
+                        "Gramática avanzada: subjuntivo y condicional",
+                        "Vocabulario temático especializado",
+                        "Expresión oral y pronunciación",
+                        "Lectura de textos literarios",
+                        "Escritura de correspondencia formal",
+                        "Cultura de países francófonos",
+                        "Preparación para DELF B1/B2",
+                        "Debates y presentaciones"
+                    ]
+                };
+            }
+            
+            // Actualizar el modal con los datos del curso
+            document.getElementById('modalCourseTitle').textContent = courseData.title;
+            document.getElementById('modalCourseLevel').textContent = courseData.level.charAt(0).toUpperCase() + courseData.level.slice(1);
+            document.getElementById('modalCourseLevel').className = 'course-level level-' + courseData.level;
+            document.getElementById('modalCourseDescription').textContent = courseData.description;
+            document.getElementById('modalCourseDuration').textContent = courseData.duration;
+            document.getElementById('modalCourseStudents').textContent = courseData.students;
+            document.getElementById('modalCourseTeacher').textContent = courseData.teacher;
+            document.getElementById('modalCourseSchedule').textContent = courseData.schedule;
+            
+            const syllabusContainer = document.getElementById('modalCourseSyllabus');
+            syllabusContainer.innerHTML = '';
+            courseData.syllabus.forEach(item => {
+                const syllabusItem = document.createElement('div');
+                syllabusItem.className = 'syllabus-item';
+                syllabusItem.textContent = item;
+                syllabusContainer.appendChild(syllabusItem);
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = parseInt(entry.target.dataset.delay) || 0;
+                    setTimeout(() => {
+                         entry.target.classList.add('is-visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        
+        // Botón para volver arriba
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+    </script>
+</body>
+</html>
